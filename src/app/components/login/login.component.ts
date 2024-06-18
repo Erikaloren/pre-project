@@ -1,24 +1,26 @@
-import { Component, inject} from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import {JwtHelperService} from '@auth0/angular-jwt';
 import { Credential } from '../../interfaces/credential';
 import { LoginService } from '../../services/login.service';
-
-const jwtHelperService = new JwtHelperService();
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   router = inject(Router);
   loginService: LoginService = inject(LoginService);
 
-  credentialsForm = new FormGroup ({
+  credentialsForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
@@ -34,15 +36,14 @@ export class LoginComponent {
           password,
         };
         this.loginService.login(credential).subscribe((response: any) => {
-          //console.log('response: ', response);
-          //const decoded = jwtHelperService.decodeToken(response.datos);
-          //console.log('decoded: ', decoded);
-          localStorage.setItem('token', response.datos);
-          this.router.navigateByUrl('/shop');
+          if (response.resultado === 'bien') {
+            localStorage.setItem('token', response.datos);
+            this.router.navigateByUrl('/shop');
+          }
         });
       }
     } else {
-      console.log('Error: invalid form');
+      console.log('notificación');
     }
   }
 }

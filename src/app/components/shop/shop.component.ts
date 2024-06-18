@@ -6,7 +6,7 @@ import { LoginService } from '../../services/login.service';
   standalone: true,
   imports: [],
   templateUrl: './shop.component.html',
-  styleUrl: './shop.component.css'
+  styleUrl: './shop.component.css',
 })
 export class ShopComponent {
   loginService = inject(LoginService);
@@ -14,18 +14,16 @@ export class ShopComponent {
   nombre: string = '';
   ngOnInit() {
     const token: any = localStorage.getItem('token');
-    console.log('token: ', token);
     if (token) {
       this.loginService.validateToken(token).subscribe((response: any) => {
-        console.log('response: ', response);
         if (response.resultado === 'bien') {
           this.nombre = response.datos.name;
         } else {
-          console.log('el token no es válido...');
+          this.loginService.logout();
         }
       });
     } else {
-      console.log('no existe token...');
+      this.loginService.logout();
     }
   }
 }
