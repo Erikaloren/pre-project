@@ -1,5 +1,7 @@
 body{
-    background-image: url('../../../assets/backgroundhome.jpg');
+    background-image: url('../../../assets/monsters.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .title {
@@ -12,12 +14,14 @@ body{
 }
 
 #Introduction {
-    background-color: #eeb380;
+    background-color: #d8b599;
     opacity: 80%;
     padding: 3%;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-style: italic;
     color: #110402;
+    padding: 10px 20px; 
+    border-radius: 15px; 
 }
 
 #Home2{
@@ -31,9 +35,23 @@ body{
 }
 
 #textHome{
-    font-size: 150%;
-    font-weight: 800;
+    font-size: 180%;
+    font-weight: 500;
     color: #110402;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-style: italic;
+    background-color: #f0974f;
+    opacity: 90%;
+    padding: 10px 20px;     
+    border-radius: 15px; 
+    display: inline-block; 
+}
+
+.childrenReading{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #000; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

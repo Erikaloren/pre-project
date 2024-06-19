@@ -8,11 +8,9 @@
 }
 
 body{
-    background-image: url('../../../assets/Other/Bild4.png');
+    background-image: url('../../../assets/monsters.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50%;
-    filter: saturate(60%);
 }
 
 div#milogin {
