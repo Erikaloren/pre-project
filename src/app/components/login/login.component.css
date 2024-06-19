@@ -8,7 +8,7 @@
 }
 
 body{
-    background-image: url('../../../assets/monsters.png');
+    background-image: url('../../../assets/Background/monsters.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
