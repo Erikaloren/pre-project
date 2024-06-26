@@ -37,7 +37,7 @@ body {
 
 .btn-group {
   display: flex; 
-  gap: 15%; 
+  gap: 5%; 
   justify-content: center;
   padding-bottom: 1%;
 }
@@ -48,7 +48,7 @@ body {
   font-size: 110%;
   border-style: groove;
   padding: 1.3%;
-  width: equal;
+  width: 100%;
 }
 
 .card-title{

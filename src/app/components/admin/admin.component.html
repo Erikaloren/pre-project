@@ -17,9 +17,9 @@
         <div class="card-body">
           <h5 class="card-title">{{ book.Title }}</h5> <br>
           <div class="btn-group d-flex" role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btnInfor" (click)="handleInfo()">Info</button>
-            <button type="button" class="btnUpdt" (click)="handleUpdate()">Update</button>
-            <button type="button" class="btnDlt" (click)="handleDelete(book._id)">Delete</button>
+            <button type="button" class="btnInfor" (click)="openInfoModal(book)">Detalles</button>
+            <button type="button" class="btnUpdt" (click)="openEditModal(book)">Editar</button>
+            <button type="button" class="btnDlt" (click)="handleDelete(book._id)">Eliminar</button>
           </div>
         </div>
       </div>

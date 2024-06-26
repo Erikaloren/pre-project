@@ -1,22 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../services/login.service';
 import { AdminService } from '../../services/admin.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditBookModalComponent } from '../edit-book-modal/edit-book-modal.component';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { InfoBookModalComponent } from '../info-book-modal/info-book-modal.component';
 
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
-})
-export class AdminComponent implements OnInit {
-  toastrService = inject(ToastrService);
-  loginService = inject(LoginService);
-  adminService = inject(AdminService);
+    selector: 'app-admin',
+    standalone: true,
+    imports: [FormsModule, CommonModule],
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.css']
+  })
 
+export class AdminComponent implements OnInit {
   name: string = ''; // To greet the user
 
   Title: string = '';
@@ -29,14 +29,19 @@ export class AdminComponent implements OnInit {
 
   books: any[] = [];
 
+  constructor(
+    private toastrService: ToastrService,
+    private loginService: LoginService,
+    private adminService: AdminService,
+    private modalService: NgbModal
+  ) {}
+
   ngOnInit() {
     const token: any = localStorage.getItem('token');
     if (token) {
       this.loginService.validateToken(token).subscribe({
         next: (response: any) => {
           if (response.resultado === 'bien') {
-            this.name = response.datos.name;
-            this.toastrService.success(`Hello, ${this.name}!`);
             this.fetchBooks();
           } else {
             this.loginService.logout();
@@ -98,21 +103,49 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  handleInfo() {
-    console.log('...handleInfo...');
+  openInfoModal(book: any) {
+    const modalRef = this.modalService.open(InfoBookModalComponent, { size: 'lg' }); // 'lg' for large size, adjust as needed
+    modalRef.componentInstance.book = book; // Pass the selected book to the modal
   }
 
-  handleUpdate() {
-    console.log('...handleUpdate...');
+  openEditModal(book: any) {
+    const modalRef = this.modalService.open(EditBookModalComponent);
+    modalRef.componentInstance.book = { ...book }; 
+
+    modalRef.result.then((result: any) => {
+      if (result) {
+        this.handleUpdate(result._id, result);
+      }
+    }).catch((error) => {
+      console.error('Modal dismissed with error:', error);
+    });
+  }
+
+  handleUpdate(id: string, updatedData: any) {
+    this.adminService.updateBook(id, updatedData).subscribe({
+      next: (res: any) => {
+        console.log('Response:', res);
+        if (res.resultado === 'successful') {
+          this.toastrService.success(res.mensaje);
+          this.fetchBooks(); 
+        } else {
+          this.toastrService.error('An error occurred while updating the book');
+        }
+      },
+      error: (error: any) => {
+        console.error('Error occurred while updating the book:', error);
+        this.toastrService.error('An error occurred while updating the book');
+      }
+    });
   }
 
   handleDelete(id: string) {
     this.adminService.deleteBook(id).subscribe({
       next: (res: any) => {
-        console.log('respuesta:', res)
+        console.log('Response:', res);
         if (res.resultado === 'successful') {
           this.toastrService.success(res.mensaje);
-          this.fetchBooks(); // Update books after successful deletion
+          this.fetchBooks(); 
         } else {
           this.toastrService.error('An error occurred while deleting the book');
         }
@@ -123,10 +156,12 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
   trackByIndex(index: number, item: any): number {
     return index;
   }
 }
+
 
 
 
