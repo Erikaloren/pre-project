@@ -38,7 +38,7 @@ export class LoginComponent {
         this.loginService.login(credential).subscribe((response: any) => {
           if (response.resultado === 'bien') {
             localStorage.setItem('token', response.datos);
-            this.router.navigateByUrl('/shop');
+            this.router.navigateByUrl('/book-form');
           }
         });
       }

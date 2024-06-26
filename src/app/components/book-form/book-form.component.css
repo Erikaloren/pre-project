@@ -1,12 +1,4 @@
-body{
-    background-image: url('../../../assets/Other/Bild4.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50%;
-    filter: saturate(60%);
-}
-
-div#milogin {
+#bookForm {
     background: #bc6c25;
     width: 363px;
     margin-left: calc(50% - 180px);
@@ -29,3 +21,23 @@ div#milogin {
     color: #110402;
 }
 
+body {
+    background-color: #f7c9a1;
+}
+
+#Formbutton{
+  font-size: 150%;
+}
+
+#Formbutton1{
+  font-size: 110%;
+  background-color: #964c0c;
+  color: rgb(243, 239, 239);
+  font-weight: 500;
+}
+
+.container{
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+}
