@@ -1,6 +1,11 @@
 <body> <br>
+
+  <div class="container">
   <h1 class="title">Realiza tu pago</h1> <br>
 
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-dark" type="button" id="Formbutton" (click)="handleClickGoBack()">Volver a nuestros productos</button>
+    </div> <br>
 
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="CreatePaymentForm">
     <div class="form-group">
@@ -26,5 +31,6 @@
     <button type="submit" class="btn btn-light">Pagar</button>
   
   </form> <br>
+</div>
   </body>
   

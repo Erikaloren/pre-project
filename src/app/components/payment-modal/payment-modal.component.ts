@@ -36,6 +36,10 @@ export class PaymentModalComponent {
     });
   }
 
+  handleClickGoBack() {
+    this.router.navigate(['/shop']); 
+  }
+
   onSubmit() {
     if (this.registrationForm.valid) {
       const formData = this.registrationForm.value;
