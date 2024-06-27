@@ -6,6 +6,7 @@ import { ShopComponent } from './components/shop/shop.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
+import { PaymentModalComponent } from './components/payment-modal/payment-modal.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
     {path: 'create_account', title: 'Create_account', component: CreateAccountComponent},
     {path: 'admin', title: 'admin', component: AdminComponent},
     {path: 'book-form', title: 'book-form', component: BookFormComponent},
+    {path: 'payment', title: 'payment', component: PaymentModalComponent},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: '**', title: 'Not-found 404', component: PageNotFoundComponent}
 ];

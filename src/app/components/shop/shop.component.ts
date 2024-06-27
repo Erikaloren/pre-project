@@ -3,6 +3,7 @@ import { Component, NgModule, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { AdminService } from '../../services/admin.service';
+import { Router } from '@angular/router';
  
 
 @Component({
@@ -20,7 +21,8 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private adminService: AdminService // Inyecta el servicio de administración
+    private adminService: AdminService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,10 @@ export class ShopComponent implements OnInit {
     }
   }
 
+  redirectToPayment() {
+    this.router.navigate(['/payment']);
+  }
+
   fetchBooks() {
     this.adminService.getBooks().subscribe({
       next: (response: any) => {
@@ -54,4 +60,6 @@ export class ShopComponent implements OnInit {
       }
     });
   }
+
+
 }

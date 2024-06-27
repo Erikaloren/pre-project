@@ -115,18 +115,6 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // setPage(page: number) {
-  //   const startIndex = (page - 1) * 9;
-  //   const endIndex = Math.min(startIndex + 9, this.books.length);
-
-  //   this.pagedBooks = this.books.slice(startIndex, endIndex);
-  //   this.currentPage = page;
-  // }
-
-  // pageChanged(event: any) {
-  //   this.setPage(event); 
-  // }
-
   openInfoModal(book: any) {
     const modalRef = this.modalService.open(InfoBookModalComponent, { size: 'lg' }); 
     modalRef.componentInstance.book = book; 
