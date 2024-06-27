@@ -6,7 +6,7 @@ body{
     filter: saturate(60%);
 }
 
-div#milogin {
+.CreateUserForm {
     background: #bc6c25;
     width: 363px;
     margin-left: calc(50% - 180px);

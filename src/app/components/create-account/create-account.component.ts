@@ -1,70 +1,66 @@
-import { Component, inject } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-create-account',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './create-account.component.html',
-  styleUrls: ['./create-account.component.css'],
-})
+    selector: 'app-create-account',
+    standalone: true,
+    imports: [ReactiveFormsModule],
+    templateUrl: './create-account.component.html',
+    styleUrls: ['./create-account.component.css'],
+  })
 export class CreateAccountComponent {
-  registrationForm: FormGroup;
   registrationSuccess = false;
+  registrationForm: FormGroup;
 
-  toastrservice = inject(ToastrService);
-  privateRouter = inject(Router);
-
-  constructor(private userService: UserService, private fb: FormBuilder) {
-    this.registrationForm = this.fb.group({
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private toastrservice: ToastrService,
+    private router: Router
+  ) {
+    this.registrationForm = this.formBuilder.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', Validators.required],
     });
   }
 
   onSubmit() {
-    if (this.registrationForm?.valid) {
+    if (this.registrationForm.valid) {
       const formData = this.registrationForm.value;
-  
-      if (this.registrationForm?.get('name')?.invalid) {
-        this.toastrservice.error('El nombre es requerido y debe tener al menos 4 caracteres.');
-      } else if (this.registrationForm?.get('password')?.invalid) {
-        this.toastrservice.error('La contraseña debe cumplir con los requisitos de seguridad.');
-      } else {
-        this.userService.createUser(formData)
-          .subscribe((response) => {
-            if (response.resultado === 'bien') {
-              console.log('User created successfully:', response.datos);
-              this.registrationSuccess = true;
-              this.toastrservice.success(
-                '¡Usuario creado exitosamente!'
-              );
-              this.privateRouter.navigate(['/login']);
-            } else {
-              console.error('Error creating user:', response.mensaje);
-              console.log('error: ', Error);
-            }  this.toastrservice.error(
-              'Hubo un error al crear el usuario'
-            );
-          });
-      }
-    }
-  } 
-}
 
+      if (formData.confirmPassword !== formData.password) {
+        this.toastrservice.error('Las contraseñas no coinciden.');
+        return;
+      }
+
+      this.userService.createUser(formData).subscribe(
+        (response) => {
+          if (response.resultado === 'bien') {
+            this.registrationSuccess = true;
+            this.toastrservice.success('¡Usuario creado exitosamente!');
+            this.router.navigate(['/login']);
+          } else {
+            console.error('Error creating user:', response.mensaje);
+            this.toastrservice.error('Hubo un error. Asegúrate de que la contraseña cumpla con las condiciones');
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.toastrservice.error('Hubo un error al comunicarse con el servidor.');
+        }
+      );
+    } else {
+      this.toastrservice.error('Por favor, complete todos los campos correctamente.');
+    }
+  }
+}
 
 
   
