@@ -53,7 +53,7 @@ body {
 
 .card-title{
   text-align: center;
-  font-size: 150%;
+  font-size: 120%;
 }
 
 #pictures{
@@ -65,4 +65,17 @@ body {
 
 .card {
   margin-bottom: 30px; /* Add space at the bottom of each card */
+}
+
+.page-control{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: black;
+}
+
+#Formbutton{
+  font-size: 150%;
 }

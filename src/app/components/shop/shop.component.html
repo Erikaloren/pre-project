@@ -4,11 +4,11 @@
 <div class="container">
   <div class="card-container">
     <div class="card float-left overflow-hidden" *ngFor="let book of books | paginate: { itemsPerPage: 9, currentPage: p }">
-      <img src="{{ book.imagePath }}">
+      <img src="http://localhost:3002/pictures/{{ book.Picture }}">
       <div class="card-content col-12">
-        <h3>{{ book.title }}</h3>
-        <p> Autor: {{ book.authors?.join(', ') }}</p> 
-        <p> Precio: {{ book.price }} COP</p>
+        <h3>{{ book.Title }}</h3>
+        <p> Autor: {{ book.Author }}</p> 
+        <p> Precio: {{ book.Price }} COP</p>
         <a class="btn">Comprar</a>
       </div>
     </div>

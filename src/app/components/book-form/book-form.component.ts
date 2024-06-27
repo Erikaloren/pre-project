@@ -53,18 +53,18 @@ export class BookFormComponent {
           next: (response: any) => {
             console.log("respuesta: ", response)
             if (response.resultado == "successful") {
-              this.toastrService.success(response.message);
+              this.toastrService.success(response.message || 'Libro creado exitosamente');
             } else {
-              this.toastrService.error(response.message || 'An error occurred while creating the book');
+              this.toastrService.error(response.message || 'Hubo un error creando el libro');
             }
           },
           error: (error: any) => {
             console.error('Error occurred while creating the book:', error);
-            this.toastrService.error('An error occurred while creating the book');
+            this.toastrService.error('Hubo un error creando el libro');
           }
         });
     } else {
-      this.toastrService.warning('All fields are required');
+      this.toastrService.warning('Todos los campos son requeridos');
     }
   }
 
